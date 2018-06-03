@@ -3,6 +3,7 @@ import { get } from 'axios';
 import Utils from '../utils/Utils';
 
 import Image from './Image';
+import Loader from './Loader';
 
 class Grid extends Component {
   state = {
@@ -31,7 +32,7 @@ class Grid extends Component {
         'https://api.unsplash.com/search/photos',
         {
           params: {
-            client_id: '19f546f956ced0845964e54137a0e0e87a3979d414cad96323c7a2547eae2f60',
+            client_id: process.env.CLIENT_ID,
             per_page: 50,
             query: term,
             orientation: 'squarish'
@@ -56,7 +57,7 @@ class Grid extends Component {
     return (
       <div className="app">
         <div className="app-status">
-          {status === 'searching' && <h3>Searching for {term}</h3>}
+          {status === 'searching' && <Loader />}
           {status === 'error' && <h3>Sorry... an error has occurred!</h3>}
         </div>
         <div className="grid">
