@@ -1,0 +1,22 @@
+* { box-sizing: border-box; }
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+	color: $default-font;
+	background-color: $bg-black;
+	font-family: 'Roboto', sans-serif;
+	font-size: $medium-size;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+}
+
+button {
+  cursor: pointer;
+
+  &:disabled {
+    cursor: default;
+  }
+}

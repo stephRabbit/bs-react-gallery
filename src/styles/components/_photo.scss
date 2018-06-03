@@ -1,0 +1,13 @@
+.photo {}
+
+.photo__header {
+  background-color: $red;
+  color: #fff;
+  font-size: 2rem;
+  padding: 1rem;
+}
+
+.photo__img {
+  height: auto;
+  max-width: 100%;
+}
