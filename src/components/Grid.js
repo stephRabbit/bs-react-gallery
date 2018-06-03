@@ -31,7 +31,7 @@ class Grid extends Component {
         'https://api.unsplash.com/search/photos',
         {
           params: {
-            client_id: '',
+            client_id: '19f546f956ced0845964e54137a0e0e87a3979d414cad96323c7a2547eae2f60',
             per_page: 50,
             query: term,
             orientation: 'squarish'
