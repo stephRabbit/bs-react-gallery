@@ -12,7 +12,7 @@ class Grid extends Component {
   };
 
   // Life Cycle
-	componentDidMount() {
+  componentDidMount() {
     (Utils.getItems('images').length === 0)
       ? this.fetchImages('music')
       : this.setState(() => ({ images: Utils.getItems('images') }));
