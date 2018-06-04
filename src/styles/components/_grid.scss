@@ -2,6 +2,7 @@
   display: grid;
   grid-auto-rows: 100px;
   grid-auto-flow: dense;
+  grid-gap: .65rem;
   grid-template-columns: repeat(auto-fill, 100px);
   justify-content: center;
 }
@@ -26,11 +27,11 @@
   justify-items: center;
   align-items: center;
   transition: 0.2s;
-  transform: translateY(100%);
+  transform: translateY(105%);
 }
 
 .grid__link-icon {
-  font-size: 4rem;
+  font-size: 2.5rem;
   color: $white;
 }
 
@@ -53,26 +54,24 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  animation-name: hideBar, slideIn;
+  animation-name: hide, show;
   animation-duration: 5s;
   animation-timing-function: ease-in-out;
   animation-iteration-count: 1;
   opacity: 1;
 }
 
-.grid__img-fade1 { animation-delay: 0s, .25s; }
-.grid__img-fade2 { animation-delay: 0s, .5s; }
-.grid__img-fade3 { animation-delay: 0s, .75s; }
-.grid__img-fade4 { animation-delay: 0s, 1s; }
+.grid__img-fade1 { animation-delay: 0s, .5s; }
+.grid__img-fade2 { animation-delay: 0s, .75s; }
+.grid__img-fade3 { animation-delay: 0s, 1s; }
+.grid__img-fade4 { animation-delay: 0s, 1.25s; }
 
-
-
-@keyframes hideBar {
+@keyframes hide {
   from { opacity: 0; }
   to { opacity: 0 }
 }
 
-@keyframes slideIn {
+@keyframes show {
   0% { opacity: 0; }
   25% { opacity: .75; }
   100% { opacity: 1; }

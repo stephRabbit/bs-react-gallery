@@ -10,7 +10,7 @@
 .loader__item {
   font-size: 10px;
   height: 40px;
-  width: 50px;
+  width: auto;
   text-align: center;
 
   > div {
@@ -43,6 +43,12 @@
     -webkit-animation-delay: -0.8s;
     animation-delay: -0.8s;
   }
+}
+
+.loader__message {
+  font-size: 1.25rem;
+  font-weight: normal;
+  margin: .2rem;
 }
 
 @-webkit-keyframes sk-stretchdelay {

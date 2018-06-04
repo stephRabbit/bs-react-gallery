@@ -1,13 +1,26 @@
 .photo {}
 
 .photo__header {
-  background-color: $red;
+  border-bottom: 1px solid $border-color;
   color: #fff;
-  font-size: 2rem;
-  padding: 1rem;
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.photo__back-link {
+  color: $orange;
+  text-decoration: none;
+}
+
+.photo__description { color: $default-font; }
+
+.photo_picture {
+  display: block;
+  text-align: center;
 }
 
 .photo__img {
   height: auto;
+  max-height: 650px;
   max-width: 100%;
 }

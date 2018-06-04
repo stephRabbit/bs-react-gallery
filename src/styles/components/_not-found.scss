@@ -1,0 +1,20 @@
+.not-found__content {
+  background: transparent;
+  align-items: center;
+  height: 100vh;
+  justify-content: center;
+  display: flex;
+  width: 100vw;
+}
+
+.not-found__text {
+  a {
+    color: $default-font;
+    text-decoration: none;
+  }
+  font-weight: normal;
+}
+
+.not-found__link {
+  color: $orange;
+}

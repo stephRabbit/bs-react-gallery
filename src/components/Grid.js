@@ -4,27 +4,24 @@ import Utils from '../utils/Utils';
 
 import Image from './Image';
 import Loader from './Loader';
+import Header from './Header';
 
 class Grid extends Component {
   state = {
     images: [],
-    status: 'intial',
-    term: ''
+    status: ''
   };
 
-  // Life Cycle
   componentDidMount() {
     (Utils.getItems('images').length === 0)
-      ? this.fetchImages('music')
+      ? this.fetchImages('surfing')
       : this.setState(() => ({ images: Utils.getItems('images') }));
   }
 
-  // Static methods
   fetchImages = async term => {
     this.setState(() => ({
       images: [],
-      status: 'searching',
-      term: term,
+      status: 'loading'
     }));
 
     try {
@@ -33,7 +30,7 @@ class Grid extends Component {
         {
           params: {
             client_id: process.env.CLIENT_ID,
-            per_page: 50,
+            per_page: 30,
             query: term,
             orientation: 'squarish'
           }
@@ -57,9 +54,10 @@ class Grid extends Component {
     return (
       <div className="app">
         <div className="app-status">
-          {status === 'searching' && <Loader />}
-          {status === 'error' && <h3>Sorry... an error has occurred!</h3>}
+          {status === 'loading' && <Loader />}
+          {status === 'error' && <Loader message={'Sorry... an error has occurred!'}/>}
         </div>
+        <Header />
         <div className="grid">
           {images.map(image => <Image image={image} key={image.id} />)}
         </div>

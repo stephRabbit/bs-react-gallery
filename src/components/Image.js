@@ -6,6 +6,7 @@ class Image extends Component {
 
   render() {
     const { image } = this.props;
+
     return (
       <div className={`grid__item grid__item--h${this.randomNumber(4)} grid__item--v${this.randomNumber(2)} grid__item--bg${this.randomNumber(4)}`}>
           <img
