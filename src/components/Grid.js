@@ -81,6 +81,8 @@ class Grid extends Component {
       return this.setState(() => { maxPage: true });
     }
 
+    this.setState(() => ({ status: 'error' }));
+
     try {
       const response = await get(
         'https://api.unsplash.com/search/photos',
