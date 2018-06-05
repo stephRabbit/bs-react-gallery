@@ -10,20 +10,30 @@ import Header from './Header';
 class Grid extends Component {
   state = {
     images: [],
-    status: ''
+    remainPages: null,
+    maxPage: false,
+    page: 1,
+    query: 'surfing',
+    status: '',
   };
 
+  // Lifecycle
   componentDidMount() {
-    (Utils.getItems('images').length === 0)
-      ? this.fetchImages('surfing')
-      : this.setState(() => ({ images: Utils.getItems('images') }));
+    if (Utils.getItems('images').length === 0) {
+      this.fetchImages(this.state.query)
+    }
+    else {
+      let remainPageStored = localStorage.getItem('remainPages');
+      this.setState(() => ({
+        images: Utils.getItems('images'),
+        remainPages: remainPageStored ? parseInt(remainPageStored) : null
+      }));
+    }
   }
 
-  fetchImages = async term => {
-    this.setState(() => ({
-      images: [],
-      status: 'loading'
-    }));
+  // Static methods
+  fetchImages = async () => {
+    this.setState(() => ({ status: 'loading' }));
 
     try {
       const response = await get(
@@ -32,16 +42,22 @@ class Grid extends Component {
           params: {
             client_id: process.env.CLIENT_ID,
             per_page: 30,
-            query: term,
+            page: this.state.page,
+            query: this.state.query,
             orientation: 'squarish'
           }
         }
       );
 
-      Utils.setItems('images', response.data.results);
+      const { results, total_pages } = response.data;
+
+      Utils.setItems('images', results);
+      localStorage.setItem('remainPages', total_pages - 1);
+
       this.setState(() => ({
         status: 'done',
-        images: response.data.results
+        images: results,
+        remainPages: total_pages - 1
       }));
     }
     catch (error) {
@@ -58,10 +74,56 @@ class Grid extends Component {
       default:
         return '';
     }
-  }
+  };
+
+  getMoreItems = async () => {
+    if (!this.state.remainPages) {
+      return this.setState(() => { maxPage: true });
+    }
+
+    try {
+      const response = await get(
+        'https://api.unsplash.com/search/photos',
+        {
+          params: {
+            client_id: process.env.CLIENT_ID,
+            per_page: 30,
+            page: this.state.page + 1,
+            query: this.state.query,
+            orientation: 'squarish'
+          }
+        }
+      );
+
+      const { results, total_pages } = response.data;
+
+      this.setState((prevState) => ({
+        images: [ ...this.state.images, ...results ],
+        remainPages: prevState.remainPages - 1,
+        page: prevState.page + 1,
+        status: 'done',
+      }));
+    }
+    catch (error) {
+      this.setState(() => ({ status: 'error' }));
+    }
+  };
+
+  renderLoadMore = () => {
+    return this.state.remainPages > 0 && (
+      <div className="load-more">
+        <button
+          className="load-more__btn"
+          onClick={this.getMoreItems}
+        >
+          Load more <i className="load-more__icon fas fa-arrow-down"></i>
+        </button>
+      </div>
+    );
+  };
 
   render() {
-    const { images, status, term } = this.state;
+    const { images, status, remainPages } = this.state;
 
     return (
       <div className="app">
@@ -70,8 +132,9 @@ class Grid extends Component {
         </div>
         <Header />
         <div className="grid">
-          {images.map(image => <Image image={image} key={image.id} />)}
+          {images.map((image, index) => <Image image={image} key={`${image.id + index}`} />)}
         </div>
+        {this.renderLoadMore()}
       </div>
     );
   }

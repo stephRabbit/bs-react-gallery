@@ -6,7 +6,7 @@ const buildLoaderItems = () => {
     items.push(<div className={`loader__rect${i+1}`} key={i}></div>);
   }
   return items;
-}
+};
 
 const LoadingPage = props => (
   <div className="loader">

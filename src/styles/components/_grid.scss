@@ -37,6 +37,11 @@
   padding: 1.5rem 0;
   text-decoration: none;
   width: 100%;
+  opacity:1;
+  -webkit-transition: .3s ease-out;
+  transition: .3s ease-out;
+
+  &:hover { background-color: rgba(#191919, .85); }
 }
 
 .grid__link-icon { margin-left: .25rem; }
