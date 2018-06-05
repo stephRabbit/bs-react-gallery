@@ -12,11 +12,14 @@ class Image extends Component {
           <img
             alt={image.description ? image.description : 'Surfing'}
             className={`grid__img grid__img--fade${this.randomNumber(4)}`}
-            src={image.urls.regular}
+            src={image.urls.small}
           />
           <div className="grid__overlay">
-            <Link to={{pathname: `/photo/${image.id}`, state: {image}}}>
-              <i className="grid__link-icon fas fa-external-link-alt"></i>
+            <Link
+              className="grid__link"
+              to={{pathname: `/photo/${image.id}`, state: {image}}}
+            >
+              View <i className="grid__link-icon fas fa-arrow-right"></i>
             </Link>
           </div>
       </div>

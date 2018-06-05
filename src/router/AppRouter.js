@@ -1,5 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+
+// Components
 import Grid from '../components/Grid';
 import Photo from '../components/Photo';
 import NotFound from '../components/NotFound';

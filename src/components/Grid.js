@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { get } from 'axios';
 import Utils from '../utils/Utils';
 
+// Components
 import Image from './Image';
 import Loader from './Loader';
 import Header from './Header';
@@ -48,14 +49,24 @@ class Grid extends Component {
     }
   };
 
+  renderStatusContent = () => {
+    switch (this.state.status) {
+      case 'loading':
+        return <Loader />
+      case 'error':
+        return <Loader message={'Sorry... an error has occurred!'} />
+      default:
+        return '';
+    }
+  }
+
   render() {
     const { images, status, term } = this.state;
 
     return (
       <div className="app">
         <div className="app-status">
-          {status === 'loading' && <Loader />}
-          {status === 'error' && <Loader message={'Sorry... an error has occurred!'}/>}
+          {this.renderStatusContent()}
         </div>
         <Header />
         <div className="grid">
