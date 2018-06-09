@@ -81,7 +81,7 @@ class Grid extends Component {
       return this.setState(() => { maxPage: true });
     }
 
-    this.setState(() => ({ status: 'error' }));
+    this.setState(() => ({ status: 'loading' }));
 
     try {
       const response = await get(
