@@ -5,6 +5,13 @@
   justify-content: center;
   display: flex;
   width: 100vw;
+
+  &.loader--custom {
+    background: rgba(0, 0, 0, .4);
+    height: 55px;
+    position: 'fixed';
+    z-index: 1;
+  }
 }
 
 .loader__item {

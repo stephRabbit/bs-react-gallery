@@ -9,7 +9,7 @@ const buildLoaderItems = () => {
 };
 
 const LoadingPage = props => (
-  <div className="loader">
+  <div className={`loader${props.modifer ? ' loader--custom' : ''}`}>
     <div className="loader__item">
       {buildLoaderItems()}
       {props.message && <h3 className="loader__message">{props.message}</h3>}

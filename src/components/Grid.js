@@ -12,13 +12,28 @@ class Grid extends Component {
     images: [],
     remainPages: null,
     maxPage: false,
+    message: '',
     page: 1,
     query: 'surfing',
     status: '',
   };
 
-  // Lifecycle
+  /**
+   * LifeCyle Methods
+   */
   componentDidMount() {
+    this.renderGallery();
+    window.addEventListener('scroll', this.handleScroll);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
+  }
+
+  /**
+   * Static methods
+   */
+  renderGallery = () => {
     if (Utils.getItems('images').length === 0) {
       this.fetchImages(this.state.query)
     }
@@ -31,7 +46,6 @@ class Grid extends Component {
     }
   }
 
-  // Static methods
   fetchImages = async () => {
     this.setState(() => ({ status: 'loading' }));
 
@@ -97,7 +111,7 @@ class Grid extends Component {
         }
       );
 
-      const { results, total_pages } = response.data;
+      const { results } = response.data;
 
       this.setState((prevState) => ({
         images: [ ...this.state.images, ...results ],
@@ -111,21 +125,18 @@ class Grid extends Component {
     }
   };
 
-  renderLoadMore = () => {
-    return this.state.remainPages > 0 && (
-      <div className="load-more">
-        <button
-          className="load-more__btn"
-          onClick={this.getMoreItems}
-        >
-          Load more <i className="load-more__icon fas fa-arrow-down"></i>
-        </button>
-      </div>
-    );
+  handleScroll = () => {
+    const html = document.documentElement;
+    let offset = html.scrollTop + window.innerHeight;
+    let height = html.offsetHeight;
+
+    if (offset === height) {
+      setTimeout(this.getMoreItems, 1500);
+    }
   };
 
   render() {
-    const { images, status, remainPages } = this.state;
+    const { images, status } = this.state;
 
     return (
       <div className="app">
@@ -136,7 +147,13 @@ class Grid extends Component {
         <div className="grid">
           {images.map((image, index) => <Image image={image} key={`${image.id + index}`} />)}
         </div>
-        {this.renderLoadMore()}
+        {
+          status === 'loading' && (
+            <div className="app-loader">
+              <Loader modifer={true} />
+            </div>
+          )
+        }
       </div>
     );
   }
